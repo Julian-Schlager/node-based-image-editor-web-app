@@ -19,7 +19,7 @@ namespace NodeEditor.DataAccess.EfCore
 
         public async Task<IEnumerable<Node>> GetAll()
         {
-            return await this.context.Nodes.ToListAsync();
+            return await this.context.Nodes.AsNoTracking().ToListAsync();
         }
     }
 }
