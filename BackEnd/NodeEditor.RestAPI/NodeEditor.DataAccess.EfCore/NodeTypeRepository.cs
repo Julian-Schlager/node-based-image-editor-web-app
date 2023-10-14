@@ -19,7 +19,7 @@ namespace NodeEditor.DataAccess.EfCore
 
         public async Task<IEnumerable<NodeType>> GetAll()
         {
-            return await this.context.NodeTypes.AsNoTracking().ToListAsync();
+            return await this.context.NodeTypes.Include(x => x.DataInputs).AsNoTracking().ToListAsync();
         }
     }
 }

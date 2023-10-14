@@ -5,13 +5,28 @@ using NodeEditor.BuisnessLogic.Interfaces;
 using NodeEditor.DataAccess;
 using NodeEditor.DataAccess.EfCore;
 using System.Configuration;
-
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+string[] allowedHosts = builder.Configuration["AllowedOrigins"].Split(';');
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(allowedHosts)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,6 +41,7 @@ builder.Services.AddDbContext<NodeEditorContext>(options =>
        options.UseSqlServer(builder.Configuration.GetConnectionString("NodeEditorDB")));
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,15 +53,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
 
-void ConfigureServices(IServiceCollection services)
-{
-    services.AddDbContext<NodeEditorContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("NodeEditorDB"))
-);
-}
+//void ConfigureServices(IServiceCollection services)
+//{
+//    services.AddDbContext<NodeEditorContext>(options =>
+//        options.UseSqlServer(builder.Configuration.GetConnectionString("NodeEditorDB"))
+//);
+//}

@@ -2,28 +2,35 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
+import { BrowserRouter as Router, Route, Link, RouterProvider, createBrowserRouter} from 'react-router-dom';
+import NavBar from './Components/NavBar';
+import Editor from './Components/Editor';
+import Login from './Components/Login';
+import Registration from './Components/Registration';
 
 
 function App() {
+
+  const routes = [
+    {
+      path:"/",
+      element: <Editor />,
+    },
+    {
+      path:"/login",
+      element: <Login />,
+    },
+    {
+      path:"/registration",
+      element: <Registration />,
+    }
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-          <Button variant="primary">Primary</Button>{' '}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React !!
-        </a>
-      </header>
+    <div>
+      <NavBar/>
+      <RouterProvider router={createBrowserRouter(routes)} />
     </div>
-  );
+    );
 }
 
 export default App;
