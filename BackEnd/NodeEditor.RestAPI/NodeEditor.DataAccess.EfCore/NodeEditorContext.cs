@@ -53,6 +53,11 @@ namespace NodeEditor.DataAccess.EfCore
                 .HasForeignKey(e => e.NodeTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Node>()
+                .HasMany(e => e.NextNode)
+                .WithOne(e => e.PreviousNode)
+                .HasForeignKey(e => e.PreviousNodeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<NodeType>()
                 .HasMany(e => e.DataInputs)

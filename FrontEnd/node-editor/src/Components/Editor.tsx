@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { getNodeTypes } from "../Hooks/NodeTypeService";
 import { NodeType } from "../Models/NodeType";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
-import { NodeEditor } from "flume";
-import {flumeConfig, addNodeTypes} from "../flume/flumeConfig";
+import { FlumeConfig, NodeEditor, NodeMap } from "flume";
+import { addNodeTypes} from "../flume/flumeConfig";
 import useStateWithCallback from 'use-state-with-callback';
 import { Console } from "console";
+import { mapFlumeNodes } from "../Hooks/NodeMappingService";
+import { type } from "os";
 
 
 function Editor(){
@@ -16,9 +18,9 @@ function Editor(){
             nodeTypes: initNodeTypes
         }
     )
-    const [configState, setConfigState] = useState(flumeConfig);
+    const [configState, setConfigState] = useState<FlumeConfig>();
 
-    const [nodeState, setNodeState] = useState({})
+    const [nodeState, setNodeState] = useState<NodeMap>({})
 
     // Define NodeTypes Here
     // const [count, setCount] = useStateWithCallback(0, currentCount => {
@@ -48,6 +50,32 @@ function Editor(){
 
     function updateDiagram(){
         console.log(nodeState)
+        console.log(mapFlumeNodes(nodeState,nodeTypeState.nodeTypes))
+    }
+    
+    function getNodeEditor(){
+        if(configState){
+            return(<NodeEditor 
+                nodeTypes={configState.nodeTypes}
+                portTypes={configState.portTypes}
+                defaultNodes={[
+                    {
+                        type: "upload",            
+                        x: 0,
+                        y: -150
+                    },
+                    {
+                        type: "download",
+                        x: 190,
+                        y: -150
+                    }
+                ]}
+                nodes={nodeState}
+                onChange={setNodeState}
+            />)
+        }
+        return(<h2>Loading, Please Wait...</h2>)
+        
     }
 
     return(
@@ -55,13 +83,7 @@ function Editor(){
             {/* <ListGroup>
                 {state.nodeTypes.map( x=> (<ListGroupItem key={x.id}>{x.description}</ListGroupItem>))}
             </ListGroup> */}
-
-            <NodeEditor 
-                nodeTypes={configState.nodeTypes}
-                portTypes={configState.portTypes}
-                nodes={nodeState}
-                onChange={setNodeState}
-            />
+            {getNodeEditor()}
 
             <Button variant="primary" onClick={updateDiagram}>Update</Button>{' '}
         </div>

@@ -4,9 +4,11 @@ import { NodeGroup } from "./NodeGroup";
 import { EntityBase } from "./EntityBase";
 
 export interface Node extends EntityBase {
-    nodeType: NodeType;
+    nodeType?: NodeType;
     nodeTypeId: string;
     dataInputValues: DataInputValue[];
-    nodeGroup: NodeGroup;
+    nodeGroup?: NodeGroup;
     nodeGroupId: string;
+    nextNodes:Node[];
+    previousNodeId?:string;
 }

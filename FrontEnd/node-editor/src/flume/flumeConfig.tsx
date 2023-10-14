@@ -3,10 +3,13 @@ import { getConfigFileParsingDiagnostics } from "typescript";
 import { NodeType } from "../Models/NodeType";
 import { DataInput, DataInputType } from "../Models/DataInput";
 
-export const flumeConfig = new FlumeConfig()
+// export const flumeConfig = new FlumeConfig()
 
 export function addNodeTypes(nodeTypes:NodeType[]){
-    const newConfig = new FlumeConfig(flumeConfig);
+    const newConfig = new FlumeConfig();
+
+    initNodePortConfig(newConfig);
+
     nodeTypes.forEach(nodeType => {
         nodeType.dataInputs.forEach(dataInput => {
             newConfig
@@ -20,13 +23,7 @@ export function addNodeTypes(nodeTypes:NodeType[]){
                     ]
                 })
         });
-        newConfig.
-            addPortType({
-                type: "image",
-                name: "image",
-                label: "Image",
-                color: Colors.orange,
-            })
+        
         newConfig
             .addNodeType({
                 type: "string",
@@ -62,6 +59,36 @@ export function addNodeTypes(nodeTypes:NodeType[]){
     return newConfig;
 }
 
+
+function initNodePortConfig(newConfig: FlumeConfig) {
+    newConfig
+        .addPortType({
+            type: "image",
+            name: "image",
+            label: "Image",
+            color: Colors.orange,
+        });
+
+    newConfig
+        .addRootNodeType({
+            type: "upload",
+            label: "Uplaod",
+            initialWidth: 170,
+            outputs: ports => [
+                ports.image()
+            ]
+        });
+
+    newConfig
+        .addRootNodeType({
+            type: "download",
+            label: "Download",
+            initialWidth: 170,
+            inputs: ports => [
+                ports.image()
+            ]
+        });
+}
 
 function mapToFlumeType(dataInput:DataInputType){
     switch (dataInput) {

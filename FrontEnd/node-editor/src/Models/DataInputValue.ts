@@ -5,7 +5,7 @@ import { EntityBase } from "./EntityBase";
 export interface DataInputValue extends EntityBase {
     value: string;
     dataInputId: string;
-    dataInput: DataInput;
+    dataInput?: DataInput;
     nodeId: string;
-    node: Node;
+    node?: Node;
 }

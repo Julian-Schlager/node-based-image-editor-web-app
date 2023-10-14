@@ -1,5 +1,5 @@
 export interface EntityBase {
     id: string;
-    createdAt: Date;
-    lastModifiedAt: Date;
+    createdAt?: Date;
+    lastModifiedAt?: Date;
 }

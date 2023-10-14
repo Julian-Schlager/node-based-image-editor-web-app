@@ -7,7 +7,7 @@ export interface DataInput extends EntityBase {
     label: string;
     name: string;
     nodeTypeId: string;
-    nodeType: NodeType;
+    nodeType?: NodeType;
     dataInputValues: DataInputValue[] | null;
 }
 
