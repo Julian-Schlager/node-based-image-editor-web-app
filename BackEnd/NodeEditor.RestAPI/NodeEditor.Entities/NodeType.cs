@@ -17,9 +17,12 @@ namespace NodeEditor.Entities
         Brightness=0,
         Saturation=1,
         Contrast=2,
-        Text=3,
+        Logic=3,
         Rotate=4,
         Resize=5,
-        Crop=6
+        Crop=6,
+        text=7,
+        Upload=8,
+        Download=9
     }
 }

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { getNodeTypes } from "../Hooks/NodeTypeService";
-import { NodeType } from "../Models/NodeType";
+import { ModificationType, NodeType } from "../Models/NodeType";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
-import { FlumeConfig, NodeEditor, NodeMap } from "flume";
+import { DefaultNode, FlumeConfig, NodeEditor, NodeMap } from "flume";
 import { addNodeTypes} from "../flume/flumeConfig";
 import useStateWithCallback from 'use-state-with-callback';
 import { Console } from "console";
@@ -54,22 +54,31 @@ function Editor(){
     }
     
     function getNodeEditor(){
+        const editorDefaultNodes:DefaultNode[] = [];
+        const uploadNode = nodeTypeState.nodeTypes.find(x=> x.modificationType === ModificationType.Upload);
+        const downloadNode= nodeTypeState.nodeTypes.find(x=> x.modificationType === ModificationType.Download)
+        if(uploadNode){
+            editorDefaultNodes.push({
+                type: uploadNode.id,
+                x: -500,
+                y: -200
+            })
+        }
+
+        if(downloadNode){
+            editorDefaultNodes.push({
+                type: downloadNode.id,
+                x: 500,
+                y: 200
+            })
+        }
+        
         if(configState){
             return(<NodeEditor 
                 nodeTypes={configState.nodeTypes}
                 portTypes={configState.portTypes}
-                defaultNodes={[
-                    {
-                        type: "upload",            
-                        x: 0,
-                        y: -150
-                    },
-                    {
-                        type: "download",
-                        x: 190,
-                        y: -150
-                    }
-                ]}
+                
+                defaultNodes={editorDefaultNodes}
                 nodes={nodeState}
                 onChange={setNodeState}
             />)

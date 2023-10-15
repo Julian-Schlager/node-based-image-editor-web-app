@@ -14,6 +14,7 @@ namespace NodeEditor.Entities
         public Guid NodeTypeId { get; set; }
         public NodeType NodeType { get; set; }
         public ICollection<DataInputValue>? DataInputValues { get; set; }
+
     }
 
     public enum DataInputType

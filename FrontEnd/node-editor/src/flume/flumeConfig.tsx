@@ -1,6 +1,6 @@
 import { FlumeConfig, Controls, Colors, NodeType as FlumeNodeType } from "flume";
 import { getConfigFileParsingDiagnostics } from "typescript";
-import { NodeType } from "../Models/NodeType";
+import { ModificationType, NodeType } from "../Models/NodeType";
 import { DataInput, DataInputType } from "../Models/DataInput";
 
 // export const flumeConfig = new FlumeConfig()
@@ -8,7 +8,7 @@ import { DataInput, DataInputType } from "../Models/DataInput";
 export function addNodeTypes(nodeTypes:NodeType[]){
     const newConfig = new FlumeConfig();
 
-    initNodePortConfig(newConfig);
+    initNodePortConfig(newConfig,nodeTypes);
 
     nodeTypes.forEach(nodeType => {
         nodeType.dataInputs.forEach(dataInput => {
@@ -24,9 +24,10 @@ export function addNodeTypes(nodeTypes:NodeType[]){
                 })
         });
         
-        newConfig
+        if(nodeType.modificationType != ModificationType.Upload && nodeType.modificationType != ModificationType.Download){
+            newConfig
             .addNodeType({
-                type: "string",
+                type: nodeType.id,
                 label: nodeType.description,
                 inputs: ports => [
                     ports.image(),
@@ -36,6 +37,34 @@ export function addNodeTypes(nodeTypes:NodeType[]){
                     ports.image()
                   ]
             })
+        }
+        
+        
+        if(nodeType.modificationType === ModificationType.Download){
+            newConfig
+                .addRootNodeType({
+                    type: nodeType.id,
+                    label: nodeType.description,
+                    initialWidth: 170,
+                    inputs: ports => [
+                        ports.image()
+                    ],
+
+            })
+        }
+
+        if(nodeType.modificationType === ModificationType.Upload){
+            newConfig
+                .addRootNodeType({
+                    type: nodeType.id,
+                    label: nodeType.description,
+                    initialWidth: 170,
+                    outputs: ports => [
+                        ports.image()
+                    ],
+                
+            })
+        }
     });
     // newConfig
     //   .addPortType({
@@ -60,33 +89,13 @@ export function addNodeTypes(nodeTypes:NodeType[]){
 }
 
 
-function initNodePortConfig(newConfig: FlumeConfig) {
+function initNodePortConfig(newConfig: FlumeConfig,nodeTypes:NodeType[]) {
     newConfig
         .addPortType({
             type: "image",
             name: "image",
             label: "Image",
             color: Colors.orange,
-        });
-
-    newConfig
-        .addRootNodeType({
-            type: "upload",
-            label: "Uplaod",
-            initialWidth: 170,
-            outputs: ports => [
-                ports.image()
-            ]
-        });
-
-    newConfig
-        .addRootNodeType({
-            type: "download",
-            label: "Download",
-            initialWidth: 170,
-            inputs: ports => [
-                ports.image()
-            ]
         });
 }
 
