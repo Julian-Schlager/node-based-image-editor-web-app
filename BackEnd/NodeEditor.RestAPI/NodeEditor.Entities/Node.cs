@@ -17,7 +17,7 @@ namespace NodeEditor.Entities
 
         public Guid? PreviousNodeId { get; set; }
         public Node PreviousNode { get; set; }
-        public Node[] NextNode { get; set; }
+        public Node[] NextNodes { get; set; }
 
     }
 }

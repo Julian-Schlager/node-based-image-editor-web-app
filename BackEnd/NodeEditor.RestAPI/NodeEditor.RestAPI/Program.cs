@@ -33,6 +33,7 @@ builder.Services.AddSwaggerGen();
 //Business Logic
 builder.Services.AddScoped<INodeService, NodeService>();
 builder.Services.AddScoped<INodeTypeService, NodeTypeService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 //Repositories
 builder.Services.AddScoped<INodeRepository, NodeRepository>();
 builder.Services.AddScoped<INodeTypeRepository, NodeTypeRepository>();

@@ -11,6 +11,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "bootstrap": "^5.3.0",
+    "file-saver": "^2.0.5",
     "flume": "^0.8.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
@@ -44,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.6"
   }
 }

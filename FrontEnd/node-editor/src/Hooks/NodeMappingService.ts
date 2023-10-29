@@ -4,7 +4,7 @@ import { Node as EditorNode } from "../Models/Node";
 import { NodeType as EditorNodeType, ModificationType } from "../Models/NodeType";
 import Editor from "../Components/Editor";
 
-export function mapFlumeNodes(flumeNodes: NodeMap, nodeTypes: EditorNodeType[]): EditorNodeGroup {
+export function mapFlumeNodes(flumeNodes: NodeMap, nodeTypes: EditorNodeType[]): EditorNode|undefined {
 
     const nodes: FlumeNode[] = Object.entries(flumeNodes).map(([key, value]) => value)
 
@@ -16,19 +16,19 @@ export function mapFlumeNodes(flumeNodes: NodeMap, nodeTypes: EditorNodeType[]):
 
     const nodeGroup = {
         nodes: [] as EditorNode[],
-        userId: "toDo",
+        userId: crypto.randomUUID(),
         id: crypto.randomUUID()
     }
 
     const rootNode = getNodeRecursive(nodes, nodeTypes, nodeGroup, uploadNode)
 
     console.log(rootNode);
-    if (rootNode) {
+    // if (rootNode) {
 
-        nodeGroup.nodes = createArrayOfNodes(rootNode, [])
-    }
+    //     nodeGroup.nodes = createArrayOfNodes(rootNode, [])
+    // }
 
-    return nodeGroup;
+    return rootNode;
 
 }
 
@@ -56,7 +56,7 @@ function getNodeRecursive(nodes: FlumeNode[], nodeTypes: EditorNodeType[], nodeG
 
                 return {
                     dataInputId: dataInput.id,
-                    value: flumeValue,
+                    value: `${flumeValue}`,
                     id: crypto.randomUUID(),
                     nodeId: currentNodeId
                 }

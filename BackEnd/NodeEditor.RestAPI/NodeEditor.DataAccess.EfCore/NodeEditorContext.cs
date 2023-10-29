@@ -54,7 +54,7 @@ namespace NodeEditor.DataAccess.EfCore
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Node>()
-                .HasMany(e => e.NextNode)
+                .HasMany(e => e.NextNodes)
                 .WithOne(e => e.PreviousNode)
                 .HasForeignKey(e => e.PreviousNodeId)
                 .OnDelete(DeleteBehavior.NoAction);

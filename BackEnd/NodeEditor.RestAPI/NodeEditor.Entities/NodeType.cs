@@ -4,7 +4,7 @@ namespace NodeEditor.Entities
 {
     public class NodeType:EntityBase
     {
-        string Name { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public ModificationType ModificationType { get; set; }
         public ICollection<DataInput>? DataInputs { get; set; }
@@ -12,7 +12,7 @@ namespace NodeEditor.Entities
 
     }
 
-    public enum ModificationType
+    public enum ModificationType // ToDo: Change because partly Redundant
     {
         Brightness=0,
         Saturation=1,

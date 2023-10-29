@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "NodeEditor.Entities": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:24812;http://localhost:24813"
+    }
+  }
+}
