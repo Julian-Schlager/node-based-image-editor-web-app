@@ -66,7 +66,7 @@ function Editor() {
         // const results = nodeTypes
         // const users = results.map(parseUserData)
         console.log(nodeTypes)
-        const newFlumeConfig = addNodeTypes(nodeTypes);
+        const newFlumeConfig = addNodeTypes(nodeTypes,{editorState:editorState,updateEditorState:dispatch});
         dispatch({type:"setConfigState",value:newFlumeConfig});
         return dispatch({type:"setNodeDataState",value:{ ...editorState.nodeDataState, nodeTypes: [...nodeTypes] }})
     }
@@ -144,10 +144,6 @@ function Editor() {
                             </Button>
                         </Stack>
                     </Stack>
-                    <SelectFile editorState={editorState} updateEditorState={dispatch}></SelectFile>
-
-
-
                 </div>
             </Row>
         </Container>

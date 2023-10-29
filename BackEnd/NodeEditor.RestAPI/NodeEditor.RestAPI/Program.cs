@@ -37,6 +37,7 @@ builder.Services.AddScoped<IImageService, ImageService>();
 //Repositories
 builder.Services.AddScoped<INodeRepository, NodeRepository>();
 builder.Services.AddScoped<INodeTypeRepository, NodeTypeRepository>();
+builder.Services.AddScoped<IDataInputRepository, DataInputRepository>();
 
 builder.Services.AddDbContext<NodeEditorContext>(options =>
        options.UseSqlServer(builder.Configuration.GetConnectionString("NodeEditorDB")));

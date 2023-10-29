@@ -9,6 +9,6 @@ namespace NodeEditor.NodeTypeImplementation
 {
     public interface IEditImage
     {
-        Stream Edit(IEnumerable<Stream> image, IEnumerable<DataInputValue> dataInputValues); 
+        Stream Edit(IEnumerable<Stream> image, IEnumerable<DataInputValue> dataInputValues,IEnumerable<DataInput> dataInputs, string filename); 
     }
 }

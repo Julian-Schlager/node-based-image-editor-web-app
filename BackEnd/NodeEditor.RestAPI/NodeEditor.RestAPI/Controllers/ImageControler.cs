@@ -32,7 +32,7 @@ namespace NodeEditor.RestAPI.Controllers
                     data.FormFile.CopyTo(newMemoryStream);
                     newMemoryStream.Position = 0;
                     Node firstNode = JsonSerializer.Deserialize<Node>(data.FirstNodeJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                    IEnumerable<Stream> resultImages = await this.imageService.EditImage(newMemoryStream, firstNode);
+                    IEnumerable<Stream> resultImages = await this.imageService.EditImage(newMemoryStream, firstNode, data.FileName);
 
                     return File(resultImages.ElementAt(0),GetMimeType(data.FileName),data.FileName);
                 }

@@ -2,10 +2,14 @@ import { FlumeConfig, Controls, Colors, NodeType as FlumeNodeType } from "flume"
 import { getConfigFileParsingDiagnostics } from "typescript";
 import { ModificationType, NodeType } from "../Models/NodeType";
 import { DataInput, DataInputType } from "../Models/DataInput";
+import { Update } from "../Components/Update";
+import { SelectFile } from "../Components/SelectFile";
+import { CompProps } from "../Models/CompProps";
+import { Download } from "../Components/Download";
 
 // export const flumeConfig = new FlumeConfig()
 
-export function addNodeTypes(nodeTypes:NodeType[]){
+export function addNodeTypes(nodeTypes:NodeType[],props:CompProps){
     const newConfig = new FlumeConfig();
 
     initNodePortConfig(newConfig,nodeTypes);
@@ -41,24 +45,55 @@ export function addNodeTypes(nodeTypes:NodeType[]){
         
         
         if(nodeType.modificationType === ModificationType.Download){
+            newConfig.addPortType({
+                type: "downloadImage",
+                name: "downloadImage",
+                label: "DownloadImage",
+                controls: [
+                    Controls.custom({
+                        name: "downloadImage",
+                        label: "Download Image",
+                        render: () =>(
+                            <Download editorState={props.editorState} updateEditorState={props.updateEditorState}/>
+                        )
+                    })
+                ]
+            })
             newConfig
                 .addRootNodeType({
                     type: nodeType.id,
                     label: nodeType.description,
                     initialWidth: 170,
                     inputs: ports => [
-                        ports.image()
+                        ports.image(),
+                        ports.downloadImage()
                     ],
-
             })
         }
 
         if(nodeType.modificationType === ModificationType.Upload){
+            newConfig.addPortType({
+                type: "uploadImage",
+                name: "uploadImage",
+                label: "UploadImage",
+                controls: [
+                    Controls.custom({
+                        name: "uploadImage",
+                        label: "Upload Image",
+                        render: () =>(
+                            <SelectFile editorState={props.editorState} updateEditorState={props.updateEditorState}/>
+                        )
+                    })
+                ]
+            })
             newConfig
                 .addRootNodeType({
                     type: nodeType.id,
                     label: nodeType.description,
-                    initialWidth: 170,
+                    initialWidth: 250,
+                    inputs: ports => [
+                        ports.uploadImage()
+                    ],
                     outputs: ports => [
                         ports.image()
                     ],

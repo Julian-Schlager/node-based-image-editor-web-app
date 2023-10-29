@@ -12,9 +12,17 @@ namespace NodeEditor.BuisnessLogic.Implementation
 {
     public class ImageService : IImageService
     {
-        public Task<IEnumerable<Stream>> EditImage(Stream image, Node firstNode)
+        private IDataInputRepository dataInputRepository;
+
+        public ImageService(IDataInputRepository dataInputRepository)
         {
-            return Task.FromResult(EditImageRecursivly(image, firstNode,new List<Stream>()));
+            this.dataInputRepository = dataInputRepository;
+        }
+
+        public async Task<IEnumerable<Stream>> EditImage(Stream image, Node firstNode, string fileName)
+        {
+            IEnumerable<DataInput> dataInputs = await dataInputRepository.GetAll();
+            return EditImageRecursivly(image, firstNode,new List<Stream>(),dataInputs,fileName);
         }
 
         private IEditImage GetClassForNodeType(string name)
@@ -26,7 +34,7 @@ namespace NodeEditor.BuisnessLogic.Implementation
             return instance;
         }
 
-        private IEnumerable<Stream> EditImageRecursivly(Stream image, Node currentNode,List<Stream> images)
+        private IEnumerable<Stream> EditImageRecursivly(Stream image, Node currentNode,List<Stream> images,IEnumerable<DataInput> dataInputs, string fileName)
         {
             if(currentNode.NodeType.ModificationType != ModificationType.Download &&
                currentNode.NodeType.ModificationType != ModificationType.Upload && 
@@ -34,17 +42,17 @@ namespace NodeEditor.BuisnessLogic.Implementation
             {
                 IEditImage editNodeType = GetClassForNodeType(currentNode.NodeType.Name);
                 Stream[] streams = new Stream[] { image };
-                Stream editedImage = editNodeType.Edit(streams, currentNode.DataInputValues);
+                Stream editedImage = editNodeType.Edit(streams, currentNode.DataInputValues,dataInputs,fileName);
                 foreach (Node nextNode in currentNode.NextNodes)
                 {
-                    EditImageRecursivly(editedImage, nextNode,images);
+                    EditImageRecursivly(editedImage, nextNode,images,dataInputs,fileName);
                 }
             }
             else if(currentNode.NodeType.ModificationType == ModificationType.Upload)
             {
                 foreach (Node nextNode in currentNode.NextNodes)
                 {
-                    EditImageRecursivly(image, nextNode,images);
+                    EditImageRecursivly(image, nextNode,images,dataInputs,fileName);
                 }
             }
             else if(currentNode.NodeType.ModificationType == ModificationType.Download)
