@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NodeEditor.DataAccess\NodeEditor.DataAccess.csproj" />
+    <ProjectReference Include="..\NodeEditor.DTO\NodeEditor.DTO.csproj" />
     <ProjectReference Include="..\NodeEditor.Entities\NodeEditor.Entities.csproj" />
     <ProjectReference Include="..\NodeEditor.NodeTypeImplementation\NodeEditor.NodeTypeImplementation.csproj" />
   </ItemGroup>
