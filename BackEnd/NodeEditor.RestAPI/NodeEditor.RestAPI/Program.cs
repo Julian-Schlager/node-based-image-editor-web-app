@@ -36,11 +36,13 @@ builder.Services.AddScoped<INodeService, NodeService>();
 builder.Services.AddScoped<INodeTypeService, NodeTypeService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<INodeGroupService, NodeGroupService>();
 //Repositories
 builder.Services.AddScoped<INodeRepository, NodeRepository>();
 builder.Services.AddScoped<INodeTypeRepository, NodeTypeRepository>();
 builder.Services.AddScoped<IDataInputRepository, DataInputRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<INodeGroupRepository, NodeGroupRepository>();
 
 builder.Services.AddDbContext<NodeEditorContext>(options =>
        options.UseSqlServer(builder.Configuration.GetConnectionString("NodeEditorDB")));

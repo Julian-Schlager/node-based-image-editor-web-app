@@ -7,6 +7,7 @@ export function Download(props: CompProps){
     function downloadImage(){
         console.log(props.editorState.imageState)
         if(props.editorState.imageState){
+            props.updateDiagram()
             saveAs(props.editorState.imageState, props.editorState.fileName);
         }
     }

@@ -26,6 +26,7 @@ public class BasicAuthMiddleware
             try
             {
                 AuthenticationHeaderValue authHeader = AuthenticationHeaderValue.Parse(context.Request.Headers["Authorization"]);
+
                 byte[] credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 string[] credentials = Encoding.UTF8.GetString(credentialBytes).Split(':', 2);
                 string username = credentials[0];

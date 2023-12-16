@@ -34,14 +34,7 @@ export function Update(props : CompProps) {
     return
   }
 
-  function updateDiagram() {
-    if (props.editorState.nodeState) {
-      console.log(props.editorState.nodeState)
-      const firstNode = mapFlumeNodes(props.editorState.nodeState, props.editorState.nodeDataState.nodeTypes)
-      props.updateEditorState({type:"setFirstNodeState",value:firstNode});
-    }
-
-  }
+  
 
   useEffect(()=>{upload()},[props.editorState.firstNodeState]) // https://react.dev/reference/react/useEffect, https://react.dev/learn/state-as-a-snapshot 
 
@@ -53,7 +46,7 @@ export function Update(props : CompProps) {
           <button
             className="btn btn-success btn-sm"
             disabled={!props.editorState.currentFile}
-            onClick={updateDiagram}
+            onClick={props.updateDiagram}
           >
             Refresh
           </button>

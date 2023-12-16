@@ -2,6 +2,7 @@ import { FlumeComment, FlumeConfig, NodeMap } from "flume";
 import { NodeDataState } from "./NodeDataState";
 import { Node } from "../Models/Node"
 import { type } from "os";
+import { NodeGroup } from "./NodeGroup";
 
 export interface EditorState {
     nodeDataState: NodeDataState;
@@ -10,7 +11,10 @@ export interface EditorState {
     firstNodeState?: Node;
     imageState?: Blob;
     currentFile?: File;
-    fileName?:string;
+    fileName?: string;
+    nodeGroupName?: string;
+    nodeGroups?: NodeGroup[]
+    currentSelectedNodeGroup?: string
 }
 
 export type EditorAction =
@@ -21,24 +25,33 @@ export type EditorAction =
     | { type: "setImageState"; value: EditorState["imageState"] }
     | { type: "setCurrentFile"; value: EditorState["currentFile"] }
     | { type: "setFileName"; value: EditorState["fileName"] }
+    | { type: "setNodeGroupName"; value: EditorState["nodeGroupName"] }
+    | { type: "setNodeGroups"; value: EditorState["nodeGroups"] }
+    | { type: "setCurrentSelectedNodeGroup"; value: EditorState["currentSelectedNodeGroup"] }
 
 export function editorStateReducer(editorState: EditorState, editorAction: EditorAction): EditorState {
     switch (editorAction.type) {
         case "setNodeDataState":
-            return {...editorState, nodeDataState:editorAction.value}
+            return { ...editorState, nodeDataState: editorAction.value }
         case "setConfigState":
-            return {...editorState, configState:editorAction.value}
+            return { ...editorState, configState: editorAction.value }
         case "setNodeState":
             editorState.nodeState = editorAction.value;
             return editorState;
         case "setFirstNodeState":
-            return {...editorState, firstNodeState:editorAction.value}
+            return { ...editorState, firstNodeState: editorAction.value }
         case "setImageState":
-            return {...editorState, imageState:editorAction.value}
+            return { ...editorState, imageState: editorAction.value }
         case "setCurrentFile":
-            return {...editorState, currentFile:editorAction.value}
+            return { ...editorState, currentFile: editorAction.value }
         case "setFileName":
-            return {...editorState, fileName:editorAction.value}
+            return { ...editorState, fileName: editorAction.value }
+        case "setNodeGroupName":
+            return { ...editorState, nodeGroupName: editorAction.value }
+        case "setNodeGroups":
+            return { ...editorState, nodeGroups: editorAction.value }
+        case "setCurrentSelectedNodeGroup":
+            return { ...editorState, currentSelectedNodeGroup: editorAction.value }
         default:
             throw new Error("Unknown action");
     }

@@ -9,8 +9,10 @@ namespace NodeEditor.Entities
     public class NodeGroup:EntityBase
     {
         public ICollection<Node> Nodes { get; set; }
-
         public User User { get; set; }
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
+        public string Name { get; set; }
+        public string FlumeNodeMap { get; set; }
+
     }
 }

@@ -13,6 +13,7 @@ namespace NodeEditor.Entities
 
         [JsonIgnore]
         public string Password { get; set; }
+        [JsonIgnore]
         public string Salt { get; set; }
         public ICollection<NodeGroup> NodeGroups { get; set; }
 

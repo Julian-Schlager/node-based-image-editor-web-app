@@ -12,7 +12,7 @@ namespace NodeEditor.Entities
         public string Label { get; set; }
         public string Name { get; set; }
         public Guid NodeTypeId { get; set; }
-        public NodeType NodeType { get; set; }
+        public NodeType? NodeType { get; set; }
         public ICollection<DataInputValue>? DataInputValues { get; set; }
 
     }

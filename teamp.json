@@ -1,0 +1,84 @@
+[
+    {
+        "x": -500,
+        "y": -200,
+        "type": "4e7da52b-5d5b-4cbc-9b70-50ddcd3d8a3c",
+        "width": 250,
+        "connections": {
+            "inputs": {},
+            "outputs": {
+                "image": [
+                    {
+                        "nodeId": "BGVBWwOwcY",
+                        "portName": "image"
+                    }
+                ]
+            }
+        },
+        "inputData": {
+            "uploadImage": {}
+        },
+        "root": true,
+        "id": "Cj7YtLZwrR"
+    },
+    {
+        "x": 500,
+        "y": 200,
+        "type": "ca45ad3d-6688-44fe-9d25-fbdce1c432b3",
+        "width": 170,
+        "connections": {
+            "inputs": {
+                "image": [
+                    {
+                        "nodeId": "BGVBWwOwcY",
+                        "portName": "image"
+                    }
+                ]
+            },
+            "outputs": {}
+        },
+        "inputData": {
+            "image": {},
+            "downloadImage": {}
+        },
+        "root": true,
+        "id": "TzW9JvfXf_"
+    },
+    {
+        "id": "BGVBWwOwcY",
+        "x": -42.19608378148342,
+        "y": 22.273177513709424,
+        "type": "1df2edc3-c7ae-4933-857d-36608d55a99d",
+        "width": 200,
+        "connections": {
+            "inputs": {
+                "image": [
+                    {
+                        "nodeId": "Cj7YtLZwrR",
+                        "portName": "image"
+                    }
+                ]
+            },
+            "outputs": {
+                "image": [
+                    {
+                        "nodeId": "TzW9JvfXf_",
+                        "portName": "image"
+                    }
+                ]
+            }
+        },
+        "inputData": {
+            "image": {},
+            "BoolTest": {
+                "BoolTest": false
+            },
+            "Brightness": {
+                "Brightness": 0
+            },
+            "TestTEst": {
+                "TestTEst": ""
+            }
+        }
+    }
+]

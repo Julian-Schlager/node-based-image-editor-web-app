@@ -54,7 +54,7 @@ export function addNodeTypes(nodeTypes:NodeType[],props:CompProps){
                         name: "downloadImage",
                         label: "Download Image",
                         render: () =>(
-                            <Download editorState={props.editorState} updateEditorState={props.updateEditorState}/>
+                            <Download editorState={props.editorState} updateEditorState={props.updateEditorState}  updateDiagram={props.updateDiagram}/>
                         )
                     })
                 ]
@@ -81,7 +81,7 @@ export function addNodeTypes(nodeTypes:NodeType[],props:CompProps){
                         name: "uploadImage",
                         label: "Upload Image",
                         render: () =>(
-                            <SelectFile editorState={props.editorState} updateEditorState={props.updateEditorState}/>
+                            <SelectFile editorState={props.editorState} updateEditorState={props.updateEditorState} updateDiagram={props.updateDiagram}/>
                         )
                     })
                 ]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NodeEditor.DataAccess.EfCore;
 
@@ -11,9 +12,11 @@ using NodeEditor.DataAccess.EfCore;
 namespace NodeEditor.DataAccess.EfCore.Migrations
 {
     [DbContext(typeof(NodeEditorContext))]
-    partial class NodeEditorContextModelSnapshot : ModelSnapshot
+    [Migration("20231210171508_MakePreviousNodeOptinal")]
+    partial class MakePreviousNodeOptinal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,10 +129,6 @@ namespace NodeEditor.DataAccess.EfCore.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FlumeNodeMap")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");

@@ -8,7 +8,7 @@ export interface Node extends EntityBase {
     nodeTypeId: string;
     dataInputValues: DataInputValue[];
     nodeGroup?: NodeGroup;
-    nodeGroupId: string;
+    nodeGroupId?: string;
     nextNodes:Node[];
     previousNodeId?:string;
 }
