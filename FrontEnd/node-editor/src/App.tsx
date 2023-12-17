@@ -15,7 +15,7 @@ import { loadNodeGroups } from './Hooks/NodeGroupService';
 import { mapFlumeNodes } from './Hooks/NodeMappingService';
 
 const userInitialState: UserState = { isLoggedIn: false };
-const editorInitialState: EditorState = { nodeDataState: { nodeTypes: [] } };
+const editorInitialState: EditorState = { nodeDataState: { nodeTypes: [] },flumeRerenderKey:new Date().toISOString() };
 
 function App() {
   const [userState, userDispatch] = useReducer(userStateReducer, userInitialState);

@@ -39,9 +39,6 @@ function Editor(props: UserProps) {
 
     async function fetchNodeTypes() {
         const nodeTypes = await getNodeTypes();
-        // const results = nodeTypes
-        // const users = results.map(parseUserData)
-        console.log(nodeTypes);
         const newFlumeConfig = addNodeTypes(nodeTypes, { editorState: props.editorState, updateEditorState: props.updateEditorState, updateDiagram: props.updateDiagram });
         props.updateEditorState({ type: "setConfigState", value: newFlumeConfig });
         return props.updateEditorState({ type: "setNodeDataState", value: { ...props.editorState.nodeDataState, nodeTypes: [...nodeTypes] } });
