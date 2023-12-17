@@ -3,19 +3,19 @@ using SixLabors.ImageSharp.Formats;
 
 namespace NodeEditor.NodeTypeImplementation
 {
-    public class EditBrightness : IEditImage
+    public class EditSaturation : IEditImage
     {
-        private const string BRIGHTNESS = "Brightness";
+        private const string SATURATION = "Saturation";
 
         public Stream Edit(IEnumerable<Stream> imageStream, IEnumerable<DataInputValue> dataInputValues, IEnumerable<DataInput> dataInputs, string fileName)
         {
-            DataInput dataInput = dataInputs.FirstOrDefault(x=>x.Name == BRIGHTNESS);
+            DataInput dataInput = dataInputs.FirstOrDefault(x=>x.Name == SATURATION);
 
-            DataInputValue brightnessValue = dataInputValues.FirstOrDefault(x => x.DataInputId == dataInput.Id);
-            float brightnessModifier = float.Parse(brightnessValue.Value);
+            DataInputValue saturationValue = dataInputValues.FirstOrDefault(x => x.DataInputId == dataInput.Id);
+            float saturationModifier = float.Parse(saturationValue.Value);
 
             using Image image = Image.Load(imageStream.ElementAt(0));
-            image.Mutate(x => x.Brightness(brightnessModifier/100));
+            image.Mutate(x => x.Saturate(saturationModifier/100));
 
             string tempFileName = $"{Path.GetTempFileName()}{Path.GetExtension(fileName)}";
             image.Save(tempFileName);
@@ -30,7 +30,7 @@ namespace NodeEditor.NodeTypeImplementation
 
             File.Delete(tempFileName);
 
-            return resultStream; 
+            return resultStream;
         }
     }
 }

@@ -27,8 +27,6 @@ function Editor(props: UserProps) {
 
     const initNodeTypes: NodeType[] = []
 
-    const [key, setKey] = useState(new Date().toISOString());
-
     const [show, setShow] = useState(false);
 
     function handleClose() {
@@ -85,7 +83,7 @@ function Editor(props: UserProps) {
                 defaultNodes={editorDefaultNodes}
                 nodes={props.editorState.nodeState}
                 onChange={e => props.updateEditorState({ type: "setNodeState", value: e })}
-                key={key}
+                key={props.editorState.flumeRerenderKey}
             />)
         }
         return (<h2>Loading, Please Wait...</h2>)
@@ -135,13 +133,13 @@ function Editor(props: UserProps) {
         props.updateEditorState({ type: "setCurrentSelectedNodeGroup", value: nodeGroupId });
         if (nodeGroupId === "-1") {
             props.updateEditorState({ type: "setNodeState", value: undefined });
-            setKey(new Date().toISOString());
+            props.updateEditorState({type:"setflumeRerenderKey",value:new Date().toISOString()});
         }
         if (props.editorState.nodeGroups) {
             const selectedNodeGroup = props.editorState.nodeGroups.find(x => x.id === nodeGroupId);
             if (selectedNodeGroup?.flumeNodeMap) {
                 props.updateEditorState({ type: "setNodeState", value: JSON.parse(selectedNodeGroup?.flumeNodeMap) });
-                setKey(new Date().toISOString());
+                props.updateEditorState({type:"setflumeRerenderKey",value:new Date().toISOString()});
             }
         }
     }
@@ -225,17 +223,17 @@ function Editor(props: UserProps) {
                         </Stack>
                         {getImage()}
                         <Stack direction="horizontal" gap={5}>
-                            <Button>
+                            {/* <Button>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
                                     <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                                 </svg>
-                            </Button>
+                            </Button> */}
                             <Download editorState={props.editorState} updateEditorState={props.updateEditorState} updateDiagram={props.updateDiagram}></Download>
-                            <Button>
+                            {/* <Button>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
                                     <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                                 </svg>
-                            </Button>
+                            </Button> */}
                         </Stack>
                     </Stack>
                 </div>

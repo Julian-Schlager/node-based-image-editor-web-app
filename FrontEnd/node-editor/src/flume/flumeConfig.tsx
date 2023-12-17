@@ -18,7 +18,7 @@ export function addNodeTypes(nodeTypes:NodeType[],props:CompProps){
         nodeType.dataInputs.forEach(dataInput => {
             newConfig
                 .addPortType({
-                    type: mapToFlumeType(dataInput.dataInputType),
+                    type: mapToFlumeType(dataInput.dataInputType,dataInput.name),
                     name: dataInput.name,
                     label: dataInput.label,
                     color: Colors.green,
@@ -35,7 +35,7 @@ export function addNodeTypes(nodeTypes:NodeType[],props:CompProps){
                 label: nodeType.description,
                 inputs: ports => [
                     ports.image(),
-                    ...nodeType.dataInputs.map(x => callMethodByName(mapToFlumeType(x.dataInputType),ports))
+                    ...nodeType.dataInputs.map(x => callMethodByName(mapToFlumeType(x.dataInputType,x.name),ports))
                 ],
                   outputs: ports => [
                     ports.image()
@@ -134,14 +134,14 @@ function initNodePortConfig(newConfig: FlumeConfig,nodeTypes:NodeType[]) {
         });
 }
 
-function mapToFlumeType(dataInput:DataInputType){
-    switch (dataInput) {
+function mapToFlumeType(dataInputType:DataInputType,dataInputName:string){
+    switch (dataInputType) {
         case DataInputType.Number:
-            return "number";
+            return `number${dataInputName}`;
         case DataInputType.Text:
-            return "string";  
+            return `string${dataInputName}`;  
         case DataInputType.Boolean:
-            return "boolean";
+            return `boolean${dataInputName}`;
         default:
             throw Error("DataInputType is undifind!");
     }

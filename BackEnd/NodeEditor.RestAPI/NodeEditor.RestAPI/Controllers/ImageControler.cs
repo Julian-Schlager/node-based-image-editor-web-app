@@ -22,7 +22,7 @@ namespace NodeEditor.RestAPI.Controllers
         }
 
         [HttpPost("Edit")]
-        public async Task<ActionResult<Stream>> Post([FromForm]EditData data) // ToDo
+        public async Task<ActionResult<Stream>> Post([FromForm]EditData data)
         {
             try
             {

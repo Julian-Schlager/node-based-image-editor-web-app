@@ -5,6 +5,7 @@ import { CompProps } from "../Models/CompProps";
 export function Download(props: CompProps){
     
     function downloadImage(){
+        props.updateEditorState({type:"setflumeRerenderKey",value:new Date().toISOString()});
         console.log(props.editorState.imageState)
         if(props.editorState.imageState){
             props.updateDiagram()

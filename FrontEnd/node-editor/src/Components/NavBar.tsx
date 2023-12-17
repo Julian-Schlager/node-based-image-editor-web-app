@@ -38,11 +38,11 @@ function NavBar(props: UserProps) {
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
+      <Container className="ms-4 me-4">
         <Navbar.Brand href="/">Node Image Editor</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav>
             <Nav.Link href="/">Home</Nav.Link>
             {showLogin()}
           </Nav>

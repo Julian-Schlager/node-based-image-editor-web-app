@@ -14,7 +14,8 @@ export interface EditorState {
     fileName?: string;
     nodeGroupName?: string;
     nodeGroups?: NodeGroup[]
-    currentSelectedNodeGroup?: string
+    currentSelectedNodeGroup?: string;
+    flumeRerenderKey?: string;
 }
 
 export type EditorAction =
@@ -28,6 +29,7 @@ export type EditorAction =
     | { type: "setNodeGroupName"; value: EditorState["nodeGroupName"] }
     | { type: "setNodeGroups"; value: EditorState["nodeGroups"] }
     | { type: "setCurrentSelectedNodeGroup"; value: EditorState["currentSelectedNodeGroup"] }
+    | { type: "setflumeRerenderKey"; value: EditorState["flumeRerenderKey"] }
 
 export function editorStateReducer(editorState: EditorState, editorAction: EditorAction): EditorState {
     switch (editorAction.type) {
@@ -52,6 +54,8 @@ export function editorStateReducer(editorState: EditorState, editorAction: Edito
             return { ...editorState, nodeGroups: editorAction.value }
         case "setCurrentSelectedNodeGroup":
             return { ...editorState, currentSelectedNodeGroup: editorAction.value }
+        case "setflumeRerenderKey":
+            return { ...editorState, flumeRerenderKey: editorAction.value }
         default:
             throw new Error("Unknown action");
     }

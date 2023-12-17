@@ -3,19 +3,19 @@ using SixLabors.ImageSharp.Formats;
 
 namespace NodeEditor.NodeTypeImplementation
 {
-    public class EditBrightness : IEditImage
+    public class EditContrast : IEditImage
     {
-        private const string BRIGHTNESS = "Brightness";
+        private const string CONTRAST = "Contrast";
 
         public Stream Edit(IEnumerable<Stream> imageStream, IEnumerable<DataInputValue> dataInputValues, IEnumerable<DataInput> dataInputs, string fileName)
         {
-            DataInput dataInput = dataInputs.FirstOrDefault(x=>x.Name == BRIGHTNESS);
+            DataInput dataInput = dataInputs.FirstOrDefault(x=>x.Name == CONTRAST);
 
-            DataInputValue brightnessValue = dataInputValues.FirstOrDefault(x => x.DataInputId == dataInput.Id);
-            float brightnessModifier = float.Parse(brightnessValue.Value);
+            DataInputValue contrastValue = dataInputValues.FirstOrDefault(x => x.DataInputId == dataInput.Id);
+            float contrastModifier = float.Parse(contrastValue.Value);
 
             using Image image = Image.Load(imageStream.ElementAt(0));
-            image.Mutate(x => x.Brightness(brightnessModifier/100));
+            image.Mutate(x => x.Contrast(contrastModifier/100));
 
             string tempFileName = $"{Path.GetTempFileName()}{Path.GetExtension(fileName)}";
             image.Save(tempFileName);
